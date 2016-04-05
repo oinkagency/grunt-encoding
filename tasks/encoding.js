@@ -23,7 +23,8 @@ module.exports = function (grunt) {
         var executable,
             options = this.options({
                 encoding: 'UTF8',
-                iconv: null
+                iconv: null,
+                forceVerbose: false
             });
 
         async.waterfall([
@@ -60,7 +61,12 @@ module.exports = function (grunt) {
                         if (err) {
                             cb(err);
                         } else if (ok) {
-                            grunt.verbose.ok(util.format('File OK: %s', file));
+                            if (options.forceVerbose) {
+                              grunt.log.ok(util.format('File OK: %s', file));
+                            } else {
+                              grunt.verbose.ok(util.format('File OK: %s', file));
+                            }
+                            
                             cb();
                         } else {
                             filesWithErrors.push(file);
@@ -80,7 +86,7 @@ module.exports = function (grunt) {
             if (err) {
                 grunt.fail.fatal(err.message);
             } else if (filesWithErrors.length === 0) {
-                grunt.log.ok('All files are encoded correctly');
+                grunt.log.ok('All files are encoded correctly'.green);
             }
             done();
         });

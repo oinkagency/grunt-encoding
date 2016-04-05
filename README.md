@@ -51,6 +51,12 @@ Default value: `null`
 
 If provided, use this iconv executable rather than whatever `which iconv` returns.
 
+#### options.forceVerbose
+Type: `Boolean`
+Default value: `false`
+
+Force the output verbosity.
+
 ### Usage Examples
 
 ```js
